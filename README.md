@@ -42,11 +42,11 @@ Group 35, Department of Computer Engineering
 ## Project Structure
 
 ```
-├── repo_analysis/        # Repository Analysis Agent
-├── code_quality/         # Code Quality Agent
-├── risk_assessment/      # Risk Assessment Agent
-├── refactor_advisory/    # Refactoring Advisory Agent
-├── planning/             # Planning Agent
+├── repo_analysis/        # Inventory, language mix, Git change activity
+├── code_quality/         # Language-aware heuristic source inspection
+├── risk_assessment/      # Explainable severity, concentration, and churn score
+├── refactor_advisory/    # Signal-specific remediation advice
+├── planning/             # Risk-ranked workload and sprint capacity estimates
 ├── backend/               # FastAPI backend and agent orchestration
 └── frontend/              # React dashboard
 ```
@@ -72,7 +72,12 @@ requests stay on the same browser origin.
 The health endpoint is available at `http://localhost:8000/api/health` and the
 interactive API documentation at `http://localhost:8000/docs`.
 
-The current agents are coordinated as sequential analysis stages. Static
-checks and scoring are heuristic, and the LLM, SonarQube, PMD, model training,
-and commit-triggered re-evaluation described in the original proposal are not
-connected yet. The API only reads the selected source tree and its Git history.
+The five `agent.py` modules are independently callable stages orchestrated by
+`backend/analysis.py`. The scanner reports source-language mix and recent Git
+activity, detects unfinished markers and selected risky patterns, computes an
+explainable score with severity/concentration/churn factors, and estimates
+effort against a configurable default sprint capacity. The dashboard displays
+the evidence and recommendations per finding. Static checks and scoring remain
+heuristic: the LLM, SonarQube, PMD, trained prediction model, persisted history,
+and commit-triggered re-evaluation from the original proposal are not connected.
+The API only reads the selected source tree and its Git history.

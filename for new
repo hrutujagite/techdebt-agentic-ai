@@ -1,4 +1,10 @@
+//So guys after you clone it, link the repo you needed to check to Path first.
+Then run the system using this: 
+
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+uvicorn backend.app:app --reload
+
+//To reload it use this:
 uvicorn backend.app:app --reload
