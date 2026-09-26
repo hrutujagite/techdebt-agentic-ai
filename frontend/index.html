@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tech Debt Agent</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#"><span class="brand-mark">T</span> debt<span class="brand-muted">/</span>pilot</a><span class="status"><i></i> Analysis engine ready</span></header>
+  <main>
+    <section class="hero"><p class="eyebrow">ENGINEERING INTELLIGENCE <span>·</span> TECH DEBT</p><h1>Make the next fix<br>the <em>right</em> fix.</h1><p class="intro">Five focused agents turn your repository signals into a clear, explainable plan. Start with a local folder to see where risk is building.</p>
+      <form id="analyze-form" class="scan-form"><label for="repo-path">REPOSITORY FOLDER</label><div class="input-row"><span class="path-icon">⌘</span><input id="repo-path" name="repo_path" placeholder="C:\\path\\to\\your\\repository" required><button id="submit" type="submit">Analyze repository <span>↗</span></button></div><p class="form-note">Runs locally through the API at <code>localhost:8000</code></p></form>
+    </section>
+    <section id="results" class="results hidden" aria-live="polite"></section>
+    <section id="empty" class="agents"><div class="section-head"><div><p class="eyebrow">THE WORKFLOW</p><h2>One repository. Five perspectives.</h2></div><span class="agent-count">01 — 05</span></div><div class="agent-grid">
+      <article class="agent-card"><span class="agent-number">01</span><span class="agent-icon">⌁</span><h3>Repository analysis</h3><p>Maps the codebase and looks at recent Git change activity.</p><span class="tag">CHANGE SIGNALS</span></article>
+      <article class="agent-card"><span class="agent-number">02</span><span class="agent-icon">⌕</span><h3>Code quality</h3><p>Finds unfinished markers, risky patterns, and complexity hotspots.</p><span class="tag">SOURCE INSPECTION</span></article>
+      <article class="agent-card"><span class="agent-number">03</span><span class="agent-icon">◈</span><h3>Risk assessment</h3><p>Ranks each signal with visible severity and churn factors.</p><span class="tag">EXPLAINABLE SCORE</span></article>
+      <article class="agent-card"><span class="agent-number">04</span><span class="agent-icon">✳</span><h3>Refactoring advisory</h3><p>Explains why the issue matters and gives a practical next step.</p><span class="tag">ACTIONABLE GUIDANCE</span></article>
+      <article class="agent-card"><span class="agent-number">05</span><span class="agent-icon">▤</span><h3>Planning</h3><p>Turns ranked signals into a sprint-ready roadmap.</p><span class="tag">PRIORITIZED PLAN</span></article>
+    </div></section>
+    <footer>TECH DEBT / PILOT <span>LOCAL ANALYSIS · YOUR CODE STAYS YOURS</span></footer>
+  </main><script src="app.js"></script>
+</body></html>

@@ -50,3 +50,29 @@ Group 35, Department of Computer Engineering
 ├── backend/               # FastAPI backend and agent orchestration
 └── frontend/              # React dashboard
 ```
+
+## Run the first version
+
+The initial implementation is a lightweight local web dashboard backed by a
+FastAPI service. It scans supported source files in a repository folder, checks
+for common maintainability signals, uses recent Git churn when available, and
+returns a ranked roadmap with an explanation and a suggested next step for each
+finding. No API key or external service is required.
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn backend.app:app --reload
+```
+
+Open `http://localhost:8000` in a browser, enter the **absolute path** to a local
+repository, and run the analysis. The dashboard is served by the API so its
+requests stay on the same browser origin.
+The health endpoint is available at `http://localhost:8000/api/health` and the
+interactive API documentation at `http://localhost:8000/docs`.
+
+The current agents are coordinated as sequential analysis stages. Static
+checks and scoring are heuristic, and the LLM, SonarQube, PMD, model training,
+and commit-triggered re-evaluation described in the original proposal are not
+connected yet. The API only reads the selected source tree and its Git history.
