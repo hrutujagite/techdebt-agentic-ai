@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import ast
 import re
+from code_quality.sonarqube_client import fetch_sonarqube_findings
 
 RULES = [
     ("TODO", re.compile(r"\bTODO\b", re.I), "medium"),
@@ -39,7 +40,12 @@ def _finding(path: str, line: int, category: str, message: str, severity: str) -
             "recommendation": "", "score_factors": []}
 
 
-def inspect_code(files: list[dict]) -> list[dict]:
+def inspect_code(files: list[dict], project_key: str | None = None) -> list[dict]:
+    if project_key:
+        sonar_findings = fetch_sonarqube_findings(project_key)
+        if sonar_findings is not None:
+            return sonar_findings
+
     findings = []
     for entry in files:
         path, content = entry["path"], entry["text"]

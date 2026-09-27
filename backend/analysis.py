@@ -16,7 +16,7 @@ def analyze_repository(repo_path: str, max_files: int = 5000) -> dict[str, Any]:
     if not root.exists() or not root.is_dir():
         raise ValueError("Repository path must be an existing directory")
     inventory = inspect_repository(root, max_files=max_files)
-    findings = inspect_code(inventory["files"])
+    findings = inspect_code(inventory["files"], project_key=root.name)
     assess_risk(findings, inventory["churn"])
     for finding in findings:
         advise(finding, inventory["churn"].get(finding["file"], 0))
