@@ -11,6 +11,22 @@ ADVICE = {
     "disabled assertion": ("This assertion always fails and may be leftover debugging or an unfinished branch.", "Implement the intended behavior or raise a specific, documented exception."),
     "complex function": ("Several branching paths make behavior and test coverage harder to reason about.", "Separate cohesive branches into small helpers and add focused tests for each path."),
     "large file": ("A large file can collect unrelated responsibilities and make safe edits harder.", "Extract cohesive sections behind small interfaces."),
+        "Vulnerability": (
+        "A vulnerability is a weakness that could be exploited to compromise confidentiality, integrity, or availability.",
+        "Apply SonarQube's specific fix above, then add a test that would catch a regression."
+    ),
+    "Security Hotspot": (
+        "A security hotspot needs a human judgment call about whether the code is actually exploitable in this context.",
+        "Review the surrounding code to confirm whether it's a real risk, then fix it or mark it reviewed in SonarQube with a justification."
+    ),
+    "Bug": (
+        "SonarQube flagged this as a likely functional defect, not just a style issue.",
+        "Confirm the behavior with a test, then apply the fix described above."
+    ),
+    "Code Smell": (
+        "A code smell doesn't break functionality but increases long-term review and maintenance cost.",
+        "Apply the specific fix SonarQube suggests above, or refactor the pattern if it recurs elsewhere."
+    ),
 }
 
 

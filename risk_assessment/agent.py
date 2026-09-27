@@ -1,7 +1,19 @@
 """Prioritize findings using transparent severity, context, and churn signals."""
 SEVERITY = {"high": 52, "medium": 34, "low": 18}
-CATEGORY = {"dynamic code execution": 14, "shell execution": 16, "complex function": 9,
-            "broad exception": 8, "FIXME": 8, "large file": 5, "TODO": 4, "HACK": 5}
+CATEGORY = {
+    "dynamic code execution": 14,
+    "shell execution": 16,
+    "complex function": 9,
+    "broad exception": 8,
+    "FIXME": 8,
+    "large file": 5,
+    "TODO": 4,
+    "HACK": 5,
+    "Vulnerability": 16,
+    "Security Hotspot": 14,
+    "Bug": 10,
+    "Code Smell": 5,
+}
 
 
 def assess_risk(findings: list[dict], churn: dict) -> None:
@@ -19,4 +31,4 @@ def assess_risk(findings: list[dict], churn: dict) -> None:
             factors.append({"name": "Finding concentration", "points": min(10, concentration)})
         item["priority"] = min(100, sum(f["points"] for f in factors))
         item["score_factors"] = factors
-        item["confidence"] = "high" if item["category"] in {"complex function", "large file", "TODO", "FIXME"} else "medium"
+        item["confidence"] = "high" if item["category"] in {"complex function", "large file", "TODO", "FIXME", "Vulnerability", "Bug"} else "medium"
