@@ -17,7 +17,7 @@ def analyze_repository(repo_path: str, max_files: int = 5000) -> dict[str, Any]:
         raise ValueError("Repository path must be an existing directory")
     inventory = inspect_repository(root, max_files=max_files)
     findings = inspect_code(inventory["files"], project_key=root.name)
-    assess_risk(findings, inventory["churn"])
+    risk_info = assess_risk(findings, inventory["churn"], repo_path=str(root))
     for finding in findings:
         advise(finding, inventory["churn"].get(finding["file"], 0))
     plan = build_plan(findings)
@@ -35,7 +35,7 @@ def analyze_repository(repo_path: str, max_files: int = 5000) -> dict[str, Any]:
         "agents": [
             {"name": "Repository Analysis", "status": "complete", "detail": f"Mapped {len(inventory['files'])} files across {len(languages)} languages; inspected {inventory['commits_analyzed']} recent commits."},
             {"name": "Code Quality", "status": "complete", "detail": f"Found {len(findings)} maintainability and safety signals."},
-            {"name": "Risk Assessment", "status": "complete", "detail": "Combined finding severity, local code context, and recent change activity."},
+            {"name": "Risk Assessment", "status": "complete", "detail": risk_info["detail"]},
             {"name": "Refactoring Advisory", "status": "complete", "detail": "Generated tailored remediation advice with evidence for every finding."},
             {"name": "Planning", "status": "complete", "detail": f"Built a capacity-aware plan with {len(plan)} work groups."},
         ], "roadmap": plan, "findings": findings, "limitations": inventory["limitations"],

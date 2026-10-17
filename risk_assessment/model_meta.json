@@ -1,0 +1,136 @@
+{
+  "features": [
+    "num_changes",
+    "num_authors",
+    "lines_added",
+    "lines_deleted",
+    "churn",
+    "file_age_days",
+    "days_since_last_change",
+    "past_bugfixes",
+    "avg_files_per_commit",
+    "loc",
+    "branch_count",
+    "method_count"
+  ],
+  "repositories": {
+    "commons-codec": 154,
+    "commons-collections": 597,
+    "commons-compress": 586,
+    "commons-io": 501,
+    "commons-lang": 464,
+    "commons-text": 201,
+    "gson": 212,
+    "jsoup": 137
+  },
+  "total_files": 2852,
+  "risky_files": 428,
+  "xgboost_params": {
+    "n_estimators": 150,
+    "max_depth": 3,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "eval_metric": "logloss"
+  },
+  "dataset_settings": {
+    "feature_history_fraction": 0.7,
+    "max_files_per_bugfix_commit": 10,
+    "extensions": [
+      ".java"
+    ]
+  },
+  "xgboost_version": "3.4.1",
+  "leave_one_repo_out": [
+    {
+      "repo": "commons-codec",
+      "files": 154,
+      "risky": 32,
+      "auc_change_count": 0.7467981557,
+      "auc_lines_of_code": 0.7211834016,
+      "auc_xgb_history": 0.7207991803,
+      "auc_xgb_all": 0.734477459,
+      "auc_logreg_all": 0.7456454918
+    },
+    {
+      "repo": "commons-collections",
+      "files": 597,
+      "risky": 58,
+      "auc_change_count": 0.6999552172,
+      "auc_lines_of_code": 0.7756701427,
+      "auc_xgb_history": 0.687895848,
+      "auc_xgb_all": 0.7327330305,
+      "auc_logreg_all": 0.7636747489
+    },
+    {
+      "repo": "commons-compress",
+      "files": 586,
+      "risky": 47,
+      "auc_change_count": 0.7518256819,
+      "auc_lines_of_code": 0.7130817511,
+      "auc_xgb_history": 0.775143094,
+      "auc_xgb_all": 0.7479808945,
+      "auc_logreg_all": 0.7421939762
+    },
+    {
+      "repo": "commons-io",
+      "files": 501,
+      "risky": 88,
+      "auc_change_count": 0.7319915254,
+      "auc_lines_of_code": 0.7540171693,
+      "auc_xgb_history": 0.7319172353,
+      "auc_xgb_all": 0.752718468,
+      "auc_logreg_all": 0.7517747083
+    },
+    {
+      "repo": "commons-lang",
+      "files": 464,
+      "risky": 93,
+      "auc_change_count": 0.7777729473,
+      "auc_lines_of_code": 0.8033939078,
+      "auc_xgb_history": 0.8026925195,
+      "auc_xgb_all": 0.8096020636,
+      "auc_logreg_all": 0.8185954845
+    },
+    {
+      "repo": "commons-text",
+      "files": 201,
+      "risky": 17,
+      "auc_change_count": 0.797314578,
+      "auc_lines_of_code": 0.8420716113,
+      "auc_xgb_history": 0.8360613811,
+      "auc_xgb_all": 0.8505754476,
+      "auc_logreg_all": 0.8673273657
+    },
+    {
+      "repo": "gson",
+      "files": 212,
+      "risky": 54,
+      "auc_change_count": 0.6245897797,
+      "auc_lines_of_code": 0.7335325832,
+      "auc_xgb_history": 0.6599038912,
+      "auc_xgb_all": 0.6957571496,
+      "auc_logreg_all": 0.7381622128
+    },
+    {
+      "repo": "jsoup",
+      "files": 137,
+      "risky": 39,
+      "auc_change_count": 0.7768184197,
+      "auc_lines_of_code": 0.8038984825,
+      "auc_xgb_history": 0.7990057561,
+      "auc_xgb_all": 0.7914181057,
+      "auc_logreg_all": 0.7830978545
+    },
+    {
+      "repo": "MEAN",
+      "files": 2852,
+      "risky": 428,
+      "auc_change_count": 0.7383832881,
+      "auc_lines_of_code": 0.7683561312,
+      "auc_xgb_history": 0.7516773632,
+      "auc_xgb_all": 0.7644078273,
+      "auc_logreg_all": 0.7763089804
+    }
+  ]
+}
