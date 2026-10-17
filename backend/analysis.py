@@ -6,7 +6,7 @@ from typing import Any
 
 from code_quality.agent import inspect_code
 from planning.agent import build_plan
-from refactor_advisory.agent import advise
+from refactor_advisory.agent import advise_all
 from repo_analysis.agent import inspect_repository
 from risk_assessment.agent import assess_risk
 
@@ -18,8 +18,7 @@ def analyze_repository(repo_path: str, max_files: int = 5000) -> dict[str, Any]:
     inventory = inspect_repository(root, max_files=max_files)
     findings = inspect_code(inventory["files"], project_key=root.name)
     risk_info = assess_risk(findings, inventory["churn"], repo_path=str(root))
-    for finding in findings:
-        advise(finding, inventory["churn"].get(finding["file"], 0))
+    advice_info = advise_all(findings, inventory["churn"], root)
     plan = build_plan(findings)
     languages: dict[str, int] = {}
     for entry in inventory["files"]:
@@ -36,7 +35,7 @@ def analyze_repository(repo_path: str, max_files: int = 5000) -> dict[str, Any]:
             {"name": "Repository Analysis", "status": "complete", "detail": f"Mapped {len(inventory['files'])} files across {len(languages)} languages; inspected {inventory['commits_analyzed']} recent commits."},
             {"name": "Code Quality", "status": "complete", "detail": f"Found {len(findings)} maintainability and safety signals."},
             {"name": "Risk Assessment", "status": "complete", "detail": risk_info["detail"]},
-            {"name": "Refactoring Advisory", "status": "complete", "detail": "Generated tailored remediation advice with evidence for every finding."},
+            {"name": "Refactoring Advisory", "status": "complete", "detail": advice_info["detail"]},
             {"name": "Planning", "status": "complete", "detail": f"Built a capacity-aware plan with {len(plan)} work groups."},
         ], "roadmap": plan, "findings": findings, "limitations": inventory["limitations"],
     }
