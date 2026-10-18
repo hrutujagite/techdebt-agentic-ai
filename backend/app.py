@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
 from .analysis import analyze_repository
+from .storage import record_and_compare, repository_status
 
 app = FastAPI(title="Tech Debt Agent", version="0.1.0", description="Explainable, multi-stage repository debt analysis")
 
@@ -21,7 +22,19 @@ def health():
 @app.post("/api/analyze")
 def analyze(request: AnalyzeRequest):
     try:
-        return analyze_repository(request.repo_path)
+        result = analyze_repository(request.repo_path)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    # Remember this run and describe what changed since the previous one.
+    result["history"] = record_and_compare(result)
+    return result
+
+
+@app.get("/api/status")
+def status(repo_path: str):
+    """Has the repository moved since it was last analyzed? Cheap: no analysis is run."""
+    try:
+        return repository_status(repo_path)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
