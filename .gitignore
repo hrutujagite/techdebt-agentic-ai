@@ -18,3 +18,7 @@ __pycache__/
 
 # Cached LLM answers
 refactor_advisory/llm_cache.json
+
+# Local analysis history
+techdebt.db
+techdebt.db-*
