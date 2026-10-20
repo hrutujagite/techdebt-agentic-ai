@@ -10,3 +10,8 @@
 .history summary{cursor:pointer;font-weight:500}
 .history ul{padding-left:18px;margin:8px 0 0}
 .history li{margin:5px 0;color:var(--muted);line-height:1.5}
+.watch-row{display:flex;align-items:center;gap:14px;margin-top:8px;flex-wrap:wrap}
+.watch{font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.watch input{accent-color:var(--green)}
+.watch-row .form-note{margin:0}
+.trace{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;color:var(--muted);margin:8px 0;line-height:1.7;word-break:break-word}

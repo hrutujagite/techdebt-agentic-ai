@@ -12,6 +12,7 @@ app = FastAPI(title="Tech Debt Agent", version="0.1.0", description="Explainable
 
 class AnalyzeRequest(BaseModel):
     repo_path: str = Field(..., description="Path to a local repository directory")
+    trigger: str = Field("manual", pattern="^(manual|watch)$", description="What started this analysis")
 
 
 @app.get("/api/health")
@@ -22,7 +23,7 @@ def health():
 @app.post("/api/analyze")
 def analyze(request: AnalyzeRequest):
     try:
-        result = analyze_repository(request.repo_path)
+        result = analyze_repository(request.repo_path, trigger=request.trigger)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     # Remember this run and describe what changed since the previous one.
