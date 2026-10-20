@@ -112,6 +112,14 @@ def commits_between(repo: str | Path, old: str | None, new: str | None, limit: i
     return {"count": int(count), "recent": recent}
 
 
+def files_changed_between(repo: str | Path, old: str | None, new: str | None) -> list[str] | None:
+    """Paths touched by the commits between ``old`` and ``new`` (None if it cannot be determined)."""
+    if not old or not new:
+        return None
+    output = _git(repo, "diff", "--name-only", old, new)
+    return None if output is None else [line for line in output.splitlines() if line]
+
+
 # ---------------------------------------------------------------------------
 # Saving and loading runs
 # ---------------------------------------------------------------------------
@@ -136,7 +144,8 @@ def save_run(conn: sqlite3.Connection, result: dict) -> int:
     cursor = conn.execute(
         "INSERT INTO runs (repo_key, repo_path, head_commit, analyzed_at, files_scanned, findings, "
         "high_priority, average_priority, model_used, llm_upgraded) VALUES (?,?,?,?,?,?,?,?,?,?)",
-        (repo_key(result["repository"]), result["repository"], head_commit(result["repository"]),
+        (repo_key(result["repository"]), result["repository"],
+         result.get("orchestration", {}).get("analyzed_commit") or head_commit(result["repository"]),
          datetime.now(timezone.utc).isoformat(timespec="seconds"), summary["files_scanned"],
          summary["findings"], summary["high_priority"], summary["average_priority"],
          int(any("bugfix_probability" in f for f in findings)),
